@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>🎂</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      background: #000;
+      overflow: hidden;
+    }
+
+    video {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    #tap-overlay {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 0, 0, 0.6);
+      cursor: pointer;
+      z-index: 10;
+      transition: opacity 0.4s ease;
+    }
+
+    #tap-overlay.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    #tap-overlay .play-btn {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.15);
+      border: 2px solid rgba(255,255,255,0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
+
+    #tap-overlay .play-btn svg {
+      width: 28px;
+      height: 28px;
+      fill: white;
+      margin-left: 4px;
+    }
+
+    #tap-overlay p {
+      color: rgba(255,255,255,0.85);
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 15px;
+      letter-spacing: 0.02em;
+    }
+  </style>
+</head>
+<body>
+
+  <video id="vid" playsinline webkit-playsinline preload="auto">
+    <source src="video.mp4" type="video/mp4" />
+  </video>
+
+  <div id="tap-overlay">
+    <div class="play-btn">
+      <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+    </div>
+    <p>Tap to play</p>
+  </div>
+
+  <script>
+    const vid = document.getElementById('vid');
+    const overlay = document.getElementById('tap-overlay');
+
+    overlay.addEventListener('click', () => {
+      vid.play();
+      overlay.classList.add('hidden');
+    });
+
+    vid.addEventListener('ended', () => {
+      overlay.classList.remove('hidden');
+    });
+  </script>
+
+</body>
+</html>
